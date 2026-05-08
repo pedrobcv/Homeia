@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Masterclass para Docentes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #7000ff;
+            --bg-dark: #050508;
+            --card-bg: rgba(15, 15, 25, 0.8);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        .font-tech { font-family: 'Orbitron', sans-serif; }
+
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            mask-image: radial-gradient(circle, black, transparent 80%);
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+        }
+
+        .card-glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-glass:hover {
+            transform: translateY(-5px) scale(1.01);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.1);
+        }
+
+        .btn-tech {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-tech:hover {
+            letter-spacing: 2px;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        #lock-overlay {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px);
+            display: none;
+        }
+
+        .theme-content {
+            display: none;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .glow-dot {
+            height: 8px; width: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .scan-line {
+            width: 100%; height: 2px;
+            background: var(--primary);
+            position: absolute; top: 0; left: 0;
+            opacity: 0.3; animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        .shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <main id="main-hub" class="min-h-screen p-4 md:p-8 max-w-7xl mx-auto flex flex-col justify-center">
+        <header class="text-center mb-4">
+            <div class="flex items-center justify-center gap-4 mb-2">
+                <h1 class="text-3xl md:text-5xl font-bold font-tech neon-text uppercase">IA EDUCATIVA</h1>
+                <a href="https://google.com" target="_blank" class="px-4 py-1.5 bg-blue-900/30 border border-blue-500/50 rounded-full font-tech text-[10px] md:text-xs text-blue-300 hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(0,242,255,0.2)]">
+                    TallerIA
+                </a>
+            </div>
+            <p class="text-blue-300 tracking-widest uppercase text-[10px] md:text-xs mb-4">Curso Maestro: Transformación Digital Ing. Pedro Céspedes V</p>
+            
+            <div class="max-w-5xl mx-auto card-glass p-4 rounded-2xl border border-blue-500/30 text-left mb-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-2 opacity-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                </div>
+                <h3 class="text-lg font-tech text-blue-400 mb-2 flex items-center"><span class="glow-dot"></span> Instrucción de la actividad</h3>
+                <p class="text-gray-300 text-xs mb-3 leading-snug">
+                    Lee la información asignada y explica el contenido con tus propias palabras eligiendo una opción:
+                </p>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-[10px] md:text-xs">
+                    <div class="bg-blue-900/20 p-2 rounded-lg border border-blue-800/50 flex flex-col items-center text-center">
+                        <span class="text-xl mb-1">📄</span> <span class="font-bold text-white uppercase block">Resumen</span>
+                    </div>
+                    <div class="bg-blue-900/20 p-2 rounded-lg border border-blue-800/50 flex flex-col items-center text-center">
+                        <span class="text-xl mb-1">🗂️</span> <span class="font-bold text-white uppercase block">Esquema</span>
+                    </div>
+                    <div class="bg-blue-900/20 p-2 rounded-lg border border-blue-800/50 flex flex-col items-center text-center">
+                        <span class="text-xl mb-1">🌳</span> <span class="font-bold text-white uppercase block">Mapa mental</span>
+                    </div>
+                    <div class="bg-blue-900/20 p-2 rounded-lg border border-blue-800/50 flex flex-col items-center text-center">
+                        <span class="text-xl mb-1">🎨</span> <span class="font-bold text-white uppercase block">Infografía</span>
+                    </div>
+                    <div class="bg-blue-900/20 p-2 rounded-lg border border-blue-800/50 flex flex-col items-center text-center col-span-2 md:col-span-1">
+                        <span class="text-xl mb-1">🎧</span> <span class="font-bold text-white uppercase block">Audio</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div onclick="openLock(1)" class="card-glass p-4 rounded-xl cursor-pointer relative group overflow-hidden border-b-2 border-primary/50 flex flex-col justify-between h-32">
+                <h2 class="text-sm font-tech text-white uppercase leading-tight">01. Revolución</h2>
+                <div class="flex justify-between items-end">
+                    <span class="text-[8px] text-blue-400 font-mono">RESTRINGIDO</span>
+                    <div class="w-6 h-6 rounded-full border border-blue-500 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                    </div>
+                </div>
+            </div>
+            <div onclick="openLock(2)" class="card-glass p-4 rounded-xl cursor-pointer relative group overflow-hidden border-b-2 border-blue-400 flex flex-col justify-between h-32">
+                <h2 class="text-sm font-tech text-white uppercase leading-tight">02. Cerebro IA</h2>
+                <div class="flex justify-between items-end">
+                    <span class="text-[8px] text-blue-400 font-mono">RESTRINGIDO</span>
+                    <div class="w-6 h-6 rounded-full border border-blue-500 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                    </div>
+                </div>
+            </div>
+            <div onclick="openLock(3)" class="card-glass p-4 rounded-xl cursor-pointer relative group overflow-hidden border-b-2 border-cyan-500/50 flex flex-col justify-between h-32">
+                <h2 class="text-sm font-tech text-white uppercase leading-tight">03. Prompting</h2>
+                <div class="flex justify-between items-end">
+                    <span class="text-[8px] text-cyan-400 font-mono">RESTRINGIDO</span>
+                    <div class="w-6 h-6 rounded-full border border-cyan-500 flex items-center justify-center group-hover:bg-cyan-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                    </div>
+                </div>
+            </div>
+            <div onclick="openLock(4)" class="card-glass p-4 rounded-xl cursor-pointer relative group overflow-hidden border-b-2 border-red-500/50 flex flex-col justify-between h-32">
+                <h2 class="text-sm font-tech text-white uppercase leading-tight">04. Ética</h2>
+                <div class="flex justify-between items-end">
+                    <span class="text-[8px] text-red-400 font-mono">RESTRINGIDO</span>
+                    <div class="w-6 h-6 rounded-full border border-red-500 flex items-center justify-center group-hover:bg-red-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                    </div>
+                </div>
+            </div>
+            <div onclick="openLock(5)" class="card-glass p-4 rounded-xl cursor-pointer relative group overflow-hidden border-b-2 border-purple-500/50 flex flex-col justify-between h-32">
+                <div class="scan-line"></div>
+                <h2 class="text-sm font-tech text-white uppercase leading-tight">05. Experiencias</h2>
+                <div class="flex justify-between items-end">
+                    <span class="text-[8px] text-purple-400 font-mono">RESTRINGIDO</span>
+                    <div class="w-6 h-6 rounded-full border border-purple-500 flex items-center justify-center group-hover:bg-purple-500 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Overlay Clave -->
+    <div id="lock-overlay" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div id="modal-box" class="card-glass p-8 rounded-3xl w-full max-w-sm text-center border-2 border-blue-500">
+            <h3 class="text-2xl font-tech neon-text mb-4 uppercase">ACCESO</h3>
+            <p class="text-xs text-gray-400 mb-6 font-mono">AUTORIZACIÓN REQUERIDA</p>
+            <input type="text" id="pass-input" placeholder="____" class="w-full bg-black border border-blue-900 rounded-lg p-3 mb-6 text-center font-mono text-xl text-blue-400 focus:outline-none focus:border-cyan-400 transition-all uppercase">
+            <div class="flex space-x-3">
+                <button onclick="closeLock()" class="w-1/2 p-3 border border-gray-600 rounded-lg text-xs font-tech hover:bg-gray-800 transition-colors">CANCELAR</button>
+                <button onclick="validatePass()" class="w-1/2 p-3 btn-tech text-white rounded-lg text-xs font-tech">ACCEDER</button>
+            </div>
+            <p id="error-msg" class="text-red-500 text-[10px] mt-4 hidden uppercase tracking-widest">CÓDIGO INVÁLIDO</p>
+        </div>
+    </div>
+
+    <!-- Contenido -->
+    <div id="content-viewer" class="fixed inset-0 z-40 bg-black overflow-y-auto hidden p-4 md:p-12">
+        <button onclick="backToHub()" class="fixed top-4 left-4 p-3 card-glass rounded-full hover:bg-blue-900 transition-all group z-50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+        </button>
+
+        <div class="max-w-4xl mx-auto">
+            <!-- Artículo 1: Revolución de la IA Generativa (ACTUALIZADO) -->
+            <article id="art-1" class="theme-content space-y-8">
+                <div class="text-blue-500 font-mono text-xs tracking-widest uppercase mb-2">MÓDULO 01</div>
+                <h1 class="text-3xl md:text-5xl font-bold font-tech text-white leading-tight uppercase">La Revolución de la IA Generativa en la Educación</h1>
+                <div class="h-1 w-20 bg-blue-500 mb-4"></div>
+                <h2 class="text-xl text-blue-300 italic mb-6">El cambio de paradigma: Del "Buscador" al "Creador"</h2>
+
+                <div class="space-y-6 text-gray-300 leading-relaxed text-sm md:text-base">
+                    <section class="bg-blue-900/10 p-6 md:p-8 rounded-xl border-l-4 border-blue-500">
+                        <h3 class="text-white font-tech text-lg mb-4 flex items-center uppercase"><span class="glow-dot"></span> Fundamentación Teórica</h3>
+                        <p class="mb-4">La <strong>Inteligencia Artificial Generativa (IAGen)</strong> representa el salto más significativo en la tecnología educativa desde la invención de la imprenta. Mientras que la IA tradicional (discriminativa) se dedica a clasificar datos, la IA Generativa utiliza arquitecturas complejas como los <strong>Transformers</strong> para aprender la estructura estadística de la información y crear algo nuevo.</p>
+                        <p>En el contexto educativo, esto significa que la tecnología pasa de ser una biblioteca de consulta a ser un <strong>taller de producción creativa</strong>. No solo busca información; la sintetiza, la transforma y la adapta.</p>
+                    </section>
+
+                    <h3 class="text-white font-tech text-center mt-8 uppercase tracking-widest border-b border-blue-500/30 pb-2">Impacto en la Labor Docente</h3>
+                    <p class="text-gray-400 italic text-center text-xs">Históricamente, el docente ha dedicado hasta el 40% de su tiempo a tareas administrativas. La IAGen actúa como un "Copiloto Pedagógico":</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                        <div class="card-glass p-5 rounded-xl border border-blue-900/50">
+                            <h4 class="text-blue-400 font-bold mb-2 uppercase text-xs">Material Multimodal</h4>
+                            <p class="text-[10px] text-gray-400 leading-snug">Crea en segundos guiones de podcast, casos de estudio personalizados o esquemas visuales complejos.</p>
+                        </div>
+                        <div class="card-glass p-5 rounded-xl border border-blue-900/50">
+                            <h4 class="text-blue-400 font-bold mb-2 uppercase text-xs">Simulación de Roles</h4>
+                            <p class="text-[10px] text-gray-400 leading-snug">La IA actúa como personaje histórico o tutor socrático, permitiendo interacción dialógica con el conocimiento.</p>
+                        </div>
+                        <div class="card-glass p-5 rounded-xl border border-blue-900/50">
+                            <h4 class="text-blue-400 font-bold mb-2 uppercase text-xs">Carga Administrativa</h4>
+                            <p class="text-[10px] text-gray-400 leading-snug">Redacción de informes, actas y correos a padres en una fracción del tiempo habitual.</p>
+                        </div>
+                    </div>
+
+                    <section class="bg-blue-950/20 p-6 rounded-xl border border-blue-500/30 mt-8">
+                        <h3 class="text-white font-tech text-lg mb-4 uppercase">Hacia una nueva Pedagogía</h3>
+                        <p class="text-sm text-gray-300">El papel del maestro evoluciona de ser el "poseedor del conocimiento" a ser un <strong>"diseñador de experiencias de aprendizaje"</strong>.</p>
+                        <div class="bg-black/50 p-4 rounded border border-blue-900 text-xs italic text-blue-100 mt-4">
+                            "El valor ya no está en entregar la información, sino en enseñar al estudiante qué hacer con ella, cómo cuestionarla y cómo utilizarla para resolver problemas reales."
+                        </div>
+                    </section>
+                </div>
+            </article>
+            
+            <!-- Artículo 2: Modelos de Lenguaje -->
+            <article id="art-2" class="theme-content space-y-8">
+                <div class="text-blue-500 font-mono text-xs tracking-widest uppercase mb-2">MÓDULO 02</div>
+                <h1 class="text-3xl md:text-5xl font-bold font-tech text-white leading-tight uppercase">Modelos de Lenguaje (LLM) y Redes Neuronales</h1>
+                <div class="h-1 w-20 bg-blue-500 mb-4"></div>
+                <h2 class="text-xl text-blue-300 italic mb-6">Entendiendo el "Cerebro" de la Máquina y sus Procesos</h2>
+                
+                <div class="space-y-6 text-gray-300 leading-relaxed text-sm md:text-base">
+                    <section class="bg-blue-900/10 p-6 md:p-8 rounded-xl border-l-4 border-blue-500">
+                        <h3 class="text-white font-tech text-lg mb-4 flex items-center uppercase"><span class="glow-dot"></span> ¿Cómo aprenden realmente?</h3>
+                        <p class="mb-4">Los <strong>Modelos de Lenguaje Extensos (LLM)</strong>, como los que impulsan a Gemini o ChatGPT, no tienen una base de datos con respuestas preestablecidas ni una "conciencia". Su funcionamiento se basa en el <strong>Aprendizaje Profundo (Deep Learning)</strong>.</p>
+                        <p class="mb-4">Durante su entrenamiento, el modelo "lee" billones de frases de internet, libros y códigos. En este proceso, no memoriza frases, sino que desarrolla una red compleja de <strong>conexiones matemáticas (parámetros)</strong> que le permiten entender la estructura, el tono y la intención del lenguaje humano.</p>
+                    </section>
+
+                    <h3 class="text-white font-tech text-center mt-8 uppercase tracking-widest border-b border-blue-500/30 pb-2">Conceptos Clave para el Entorno Educativo</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="card-glass p-5 rounded-xl border border-blue-900/50">
+                            <h4 class="text-blue-400 font-bold mb-2 uppercase">🔸 Tokens</h4>
+                            <p class="text-xs text-gray-400">La IA procesa fragmentos llamados tokens. Esto explica dificultades con rimas o cálculos específicos, ya que "ve" sílabas como unidades matemáticas, no semánticas.</p>
+                        </div>
+                        <div class="card-glass p-5 rounded-xl border border-blue-900/50">
+                            <h4 class="text-blue-400 font-bold mb-2 uppercase">🔸 Ventana de Contexto</h4>
+                            <p class="text-xs text-gray-400">Capacidad para "recordar" la conversación actual. Determina cuánta información (como un libro de 300 páginas) puede analizar simultáneamente sin perder el hilo.</p>
+                        </div>
+                        <div class="card-glass p-5 rounded-xl border border-blue-900/50">
+                            <h4 class="text-blue-400 font-bold mb-2 uppercase">🔸 Entrenamiento</h4>
+                            <p class="text-xs text-gray-400">Fase donde la IA adquiere conocimiento procesando datos masivos. Es un proceso computacionalmente costoso que toma meses.</p>
+                        </div>
+                        <div class="card-glass p-5 rounded-xl border border-blue-900/50">
+                            <h4 class="text-blue-400 font-bold mb-2 uppercase">🔸 Inferencia</h4>
+                            <p class="text-xs text-gray-400">Es la respuesta inmediata que nos da la IA cuando le hacemos una pregunta, aplicando lo aprendido durante su entrenamiento.</p>
+                        </div>
+                    </div>
+
+                    <section class="bg-blue-950/20 p-6 rounded-xl border border-blue-500/30 mt-8">
+                        <h3 class="text-white font-tech text-lg mb-4 uppercase">El mito de la "Inteligencia"</h3>
+                        <p class="text-sm text-gray-400 mb-4">Es crucial explicar que la IA es un <strong>motor probabilístico</strong>. No "sabe" hechos; calcula cuál es la palabra más lógica que debería seguir a la anterior.</p>
+                        <div class="bg-black/50 p-4 rounded border border-blue-900 text-xs italic text-blue-100">
+                            "No sabe que la Tierra es redonda; sabe que, en su base de datos, la palabra 'redonda' suele seguir a 'La Tierra es...'."
+                        </div>
+                    </section>
+                </div>
+            </article>
+
+            <!-- Artículo 3: Prompt Engineering -->
+            <article id="art-3" class="theme-content space-y-8">
+                <div class="text-cyan-500 font-mono text-xs tracking-widest uppercase mb-2">MÓDULO 03</div>
+                <h1 class="text-3xl md:text-5xl font-bold font-tech text-white leading-tight uppercase">Prompt Engineering para Educadores</h1>
+                <div class="h-1 w-20 bg-cyan-500 mb-4"></div>
+                <h2 class="text-xl text-cyan-300 italic mb-6">El Lenguaje como Nueva Herramienta de Programación</h2>
+                
+                <div class="space-y-6 text-gray-300 leading-relaxed text-sm md:text-base">
+                    <section class="bg-cyan-900/10 p-6 md:p-8 rounded-xl border-l-4 border-cyan-500">
+                        <h3 class="text-white font-tech text-lg mb-4 flex items-center uppercase"><span class="glow-dot"></span> La Ingeniería del Diálogo Pedagógico</h3>
+                        <p class="mb-4">El <strong>Prompt Engineering</strong> (Ingeniería de Instrucciones) es la habilidad de comunicarse eficazmente con una IA para obtener resultados precisos. Para un docente, un buen prompt es la diferencia entre una respuesta genérica y una herramienta didáctica de alto valor que realmente funcione en el aula.</p>
+                        <p class="italic text-cyan-200">"No es solo 'dar órdenes', es diseñar un entorno de trabajo con contexto y objetivos claros."</p>
+                    </section>
+
+                    <h3 class="text-white font-tech text-center mt-8 uppercase tracking-widest border-b border-cyan-500/30 pb-2">Componentes de un Prompt de Alto Impacto (Modelo CO-RE-TA)</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="card-glass p-5 rounded-xl border border-cyan-900/50">
+                            <h4 class="text-cyan-400 font-bold mb-2 uppercase flex items-center"><span class="mr-2">🌍</span> COntexto</h4>
+                            <p class="text-xs text-gray-400">Describe la situación. <br><span class="italic text-gray-300">"Soy profesor de informática en un centro técnico y mis alumnos están aprendiendo HTML básico..."</span></p>
+                        </div>
+                        <div class="card-glass p-5 rounded-xl border border-cyan-900/50">
+                            <h4 class="text-cyan-400 font-bold mb-2 uppercase flex items-center"><span class="mr-2">👤</span> REl (Rol)</h4>
+                            <p class="text-xs text-gray-400">Asígnale una identidad experta. <br><span class="italic text-gray-300">"Actúa como un desarrollador web senior con paciencia pedagógica".</span></p>
+                        </div>
+                        <div class="card-glass p-5 rounded-xl border border-cyan-900/50">
+                            <h4 class="text-cyan-400 font-bold mb-2 uppercase flex items-center"><span class="mr-2">🎯</span> Tarea</h4>
+                            <p class="text-xs text-gray-400">Sé específico con el producto. <br><span class="italic text-gray-300">"Diseña una secuencia didáctica de 3 sesiones para crear una página personal..."</span></p>
+                        </div>
+                        <div class="card-glass p-5 rounded-xl border border-cyan-900/50">
+                            <h4 class="text-cyan-400 font-bold mb-2 uppercase flex items-center"><span class="mr-2">📋</span> Formato</h4>
+                            <p class="text-xs text-gray-400">Indica cómo quieres la información. <br><span class="italic text-gray-300">"Preséntalo en una tabla, con una columna para el tiempo, otra para la actividad..."</span></p>
+                        </div>
+                    </div>
+
+                    <section class="bg-cyan-950/20 p-6 rounded-xl border border-cyan-500/30 mt-8">
+                        <h3 class="text-white font-tech text-lg mb-4 uppercase">Técnicas Avanzadas: El "Few-Shot Prompting"</h3>
+                        <p class="text-sm text-gray-400 mb-4">Esta técnica consiste en darle a la IA un par de ejemplos de lo que quieres antes de pedirle el resultado final. Si quieres que la IA redacte retroalimentaciones para tus alumnos, dale primero dos ejemplos de cómo te gusta escribirlas tú.</p>
+                        <div class="bg-black/50 p-4 rounded border border-cyan-900 text-xs italic text-cyan-100">
+                            "La IA imitará tu tono, estilo y nivel de detalle, logrando una personalización que parece escrita por el propio docente."
+                        </div>
+                    </section>
+                </div>
+            </article>
+
+            <!-- Artículo 4: Ética -->
+            <article id="art-4" class="theme-content space-y-8">
+                <div class="text-red-500 font-mono text-xs tracking-widest uppercase mb-2">MÓDULO 04</div>
+                <h1 class="text-3xl md:text-5xl font-bold font-tech text-white leading-tight uppercase">Ética, Alucinaciones y Pensamiento Crítico</h1>
+                <div class="h-1 w-20 bg-red-500 mb-4"></div>
+                <h2 class="text-xl text-red-300 italic mb-6">Navegando con Seguridad en la Era de la Post-Verdad</h2>
+                
+                <div class="space-y-6 text-gray-300 leading-relaxed text-sm md:text-base">
+                    <section class="bg-red-900/10 p-6 md:p-8 rounded-xl border-l-4 border-red-500">
+                        <h3 class="text-white font-tech text-lg mb-4 flex items-center uppercase"><span class="glow-dot"></span> El Fenómeno de la Alucinación Algorítmica</h3>
+                        <p class="mb-4 text-lg">Uno de los mayores desafíos para los educadores son las <strong>"alucinaciones"</strong>. Debido a que las IA están diseñadas para ser coherentes y serviciales, si no encuentran una respuesta exacta, pueden inventar datos, citas bibliográficas o eventos históricos con una seguridad gramatical absoluta.</p>
+                        <p class="text-red-200 border-t border-red-500/20 pt-4 italic">"En educación, esto puede llevar a la desinformación si el docente o el alumno no aplican un filtro crítico."</p>
+                    </section>
+
+                    <h3 class="text-white font-tech text-center mt-10 uppercase tracking-widest border-b border-red-500/30 pb-2">Pilares de una Ética Digital en el Centro Educativo</h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="card-glass p-5 rounded-xl border-t border-red-500">
+                            <h4 class="text-red-400 font-bold mb-2 uppercase">1. Sesgos y Equidad</h4>
+                            <p class="text-sm text-gray-400 leading-snug">Los modelos pueden reflejar prejuicios culturales (racismo, sexismo, eurocentrismo). El docente debe enseñar a detectar cuándo una respuesta omite perspectivas o refuerza estereotipos.</p>
+                        </div>
+
+                        <div class="card-glass p-5 rounded-xl border-t border-red-500">
+                            <h4 class="text-red-400 font-bold mb-2 uppercase">2. Privacidad y Protección</h4>
+                            <p class="text-sm text-gray-400 leading-snug"><strong>Regla de Oro:</strong> Nunca subir datos personales de estudiantes, calificaciones con nombres o información privada del centro. Estos datos pueden ser procesados por terceros.</p>
+                        </div>
+
+                        <div class="card-glass p-5 rounded-xl border-t border-red-500">
+                            <h4 class="text-red-400 font-bold mb-2 uppercase">3. Honestidad Académica</h4>
+                            <p class="text-sm text-gray-400 leading-snug">Uso de <strong>"Bitácoras de IA"</strong>: donde el alumno documente qué prompts usó y qué partes del trabajo fueron generadas por la máquina versus su autoría propia.</p>
+                        </div>
+
+                        <div class="card-glass p-5 rounded-xl border-t border-red-500">
+                            <h4 class="text-red-400 font-bold mb-2 uppercase">4. Human-in-the-loop</h4>
+                            <p class="text-sm text-gray-400 leading-snug">La IA nunca debe tener la última palabra. Siempre debe haber un humano que verifique, edite y valide el resultado final, especialmente en evaluaciones.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Artículo 5: Experiencias -->
+            <article id="art-5" class="theme-content space-y-8">
+                <div class="text-purple-500 font-mono text-xs tracking-widest uppercase mb-2">MÓDULO 05</div>
+                <h1 class="text-3xl md:text-5xl font-bold font-tech text-white leading-tight uppercase">Personalización y Diseño de Experiencias</h1>
+                <div class="h-1 w-20 bg-purple-500 mb-4"></div>
+                <h2 class="text-xl text-purple-300 italic mb-6">El Fin del Modelo de "Talla Única" en el Aprendizaje</h2>
+                
+                <div class="space-y-6 text-gray-300 leading-relaxed text-sm md:text-base">
+                    <section class="bg-purple-900/10 p-6 md:p-8 rounded-xl border-l-4 border-purple-500">
+                        <h3 class="text-white font-tech text-lg mb-4 flex items-center uppercase"><span class="glow-dot"></span> Hacia la Diferenciación Instruccional Masiva</h3>
+                        <p class="mb-4">La personalización del aprendizaje ha sido el "santo grial" de la educación, pero era físicamente imposible para un docente con 30 o 40 alumnos. La IA elimina esta barrera, permitiendo la <strong>adaptación curricular en tiempo real</strong>.</p>
+                    </section>
+
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="card-glass p-5 rounded-xl flex gap-4">
+                            <div class="text-3xl">📚</div>
+                            <div>
+                                <h4 class="text-purple-400 font-bold mb-1 uppercase">Adaptación de Niveles</h4>
+                                <p class="text-gray-400">El docente puede pedir a la IA: <span class="italic text-gray-300">"Simplifica este texto para un nivel de lectura de 10 años, pero mantén los conceptos de oferta y demanda"</span>.</p>
+                            </div>
+                        </div>
+                        <div class="card-glass p-5 rounded-xl flex gap-4">
+                            <div class="text-3xl">🪜</div>
+                            <div>
+                                <h4 class="text-purple-400 font-bold mb-1 uppercase">Andamiaje Personalizado</h4>
+                                <p class="text-gray-400">Desglose de tareas complejas en 10 pasos pequeños y manejables con listas de verificación.</p>
+                            </div>
+                        </div>
+                        <div class="card-glass p-5 rounded-xl flex gap-4">
+                            <div class="text-3xl">🎮</div>
+                            <div>
+                                <h4 class="text-purple-400 font-bold mb-1 uppercase">Intereses Cruzados</h4>
+                                <p class="text-gray-400">Explicación de temas históricos comparándolos con mecánicas de videojuegos favoritos del alumno.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="bg-purple-950/20 p-6 md:p-8 rounded-xl border border-purple-500/30 mt-8">
+                        <h3 class="text-white font-tech text-center mb-4 uppercase italic text-xl">El Futuro: Tutores Inteligentes 24/7</h3>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-300 italic">
+                            <li class="flex items-start gap-2"><span class="text-purple-500">▶</span> Resuelve dudas a las 10 de la noche.</li>
+                            <li class="flex items-start gap-2"><span class="text-purple-500">▶</span> Pistas sin dar la respuesta directamente.</li>
+                            <li class="flex items-start gap-2"><span class="text-purple-500">▶</span> Respeta el ritmo individual.</li>
+                            <li class="flex items-start gap-2"><span class="text-purple-500">▶</span> Preguntas socráticas de descubrimiento.</li>
+                        </ul>
+                    </section>
+                </div>
+            </article>
+        </div>
+        
+        <footer class="mt-12 text-center py-6 border-t border-blue-900/30">
+            <p class="text-gray-600 font-mono text-[10px] uppercase">CURSO MAESTRO // MÓDULOS 1, 2, 3, 4 Y 5 SINCRONIZADOS</p>
+        </footer>
+    </div>
+
+    <script>
+        const PASSWORDS = {
+            1: "HTU78",
+            2: "OPL88",
+            3: "UYT54",
+            4: "KJH09",
+            5: "SDE90"
+        };
+
+        let currentActiveTheme = null;
+
+        function openLock(themeId) {
+            currentActiveTheme = themeId;
+            document.getElementById('lock-overlay').style.display = 'flex';
+            const input = document.getElementById('pass-input');
+            input.value = ''; input.focus();
+            document.getElementById('error-msg').classList.add('hidden');
+        }
+
+        function closeLock() { document.getElementById('lock-overlay').style.display = 'none'; }
+
+        function validatePass() {
+            const input = document.getElementById('pass-input').value.trim().toUpperCase();
+            if (input === PASSWORDS[currentActiveTheme]) {
+                showContent(currentActiveTheme);
+                closeLock();
+            } else {
+                document.getElementById('error-msg').classList.remove('hidden');
+                document.getElementById('modal-box').classList.add('shake');
+                setTimeout(() => document.getElementById('modal-box').classList.remove('shake'), 500);
+            }
+        }
+
+        function showContent(id) {
+            document.getElementById('main-hub').classList.add('hidden');
+            document.getElementById('content-viewer').classList.remove('hidden');
+            document.querySelectorAll('.theme-content').forEach(art => art.style.display = 'none');
+            const activeArt = document.getElementById(`art-${id}`);
+            if (activeArt) activeArt.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function backToHub() {
+            document.getElementById('main-hub').classList.remove('hidden');
+            document.getElementById('content-viewer').classList.add('hidden');
+        }
+
+        document.getElementById('pass-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') validatePass(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLock(); });
+    </script>
+</body>
+</html>
